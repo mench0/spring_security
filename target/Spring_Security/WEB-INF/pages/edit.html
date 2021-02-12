@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Page for update user</title>
+</head>
+<body>
+
+<table style="width:500px" >
+    <form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
+        <input type="hidden" th:value="${user.id}" name="id">
+        <tr>
+            <th><label for="name">Enter name: </label></th>
+            <th>
+                <input type="text" th:field="*{name}" id="name" placeholder="name">
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
+            </th>
+        </tr>
+        <tr>
+            <th><label for="name">Enter password: </label></th>
+            <th>
+                <input type="text" th:field="*{password}" id="password" placeholder="password">
+                <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+            </th>
+        </tr>
+        <tr>
+            <th><label for="name">Select role: </label></th>
+            <th>
+                <label>
+                    <input type="checkbox" name="role"
+                           th:each="role : ${allRoles}"
+                           th:text="${role.getRole()}"
+                           th:value="${role.getRole()}"/>
+                </label>
+            </th>
+            </th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input type="submit" value="Update"></th>
+        </tr>
+    </form>
+</table>
+
+<br/>
+<a href="/admin">Back</a>
+</body>
+<br/>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</html>

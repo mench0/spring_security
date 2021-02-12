@@ -1,4 +1,5 @@
 package web.model;
+
 import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import java.util.Set;
@@ -10,11 +11,10 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "role_name")
+    private String roleName;
 
-    @Transient
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users;
@@ -24,9 +24,9 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public Role(Long id, String role) {
+    public Role(Long id, String roleName) {
         this.id = id;
-        this.role = role;
+        this.roleName = roleName;
     }
 
     public Role() {
@@ -34,7 +34,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return role;
+        return roleName;
     }
 
     public Long getId() {
@@ -46,11 +46,11 @@ public class Role implements GrantedAuthority {
     }
 
     public String getRole() {
-        return role;
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(String roleName) {
+        this.roleName = roleName;
     }
 
     public Set<User> getUsers() {
@@ -59,5 +59,10 @@ public class Role implements GrantedAuthority {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return roleName;
     }
 }

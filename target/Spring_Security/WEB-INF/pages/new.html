@@ -6,23 +6,40 @@
 </head>
 <body>
 
-<table style="width:300px" >
+<table style="width:500px">
     <form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
-    <tr>
-        <th><label for="name">Enter name: </label></th>
-        <th><input type="text" th:field="*{name}" id="name" placeholder="name"></th>
-    </tr>
-    <tr>
-        <th><label for="name">Enter password: </label></th>
-        <th><input type="text" th:field="*{password}" id="password" placeholder="password"></th>
-    </tr>
-    <tr>
-        <th></th>
-        <th><input type="submit" value="Add new user"></th>
-    </tr>
+        <tr>
+            <th><label for="name">Enter name: </label></th>
+            <th><input type="text" th:field="*{name}" id="name" placeholder="name"></th>
+        </tr>
+        <tr>
+            <th><label for="name">Enter password: </label></th>
+            <th><input type="text" th:field="*{password}" id="password" placeholder="password"></th>
+        </tr>
+        <tr>
+            <th>Select role:</th>
+            <th>
+                <label>
+                    <input type="checkbox" name="role"
+                       th:each="role : ${allRoles}"
+                       th:text="${role.getRole()}"
+                       th:value="${role.getRole()}"/>
+                </label>
+            </th>
+            </th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input type="submit" value="Add new user"></th>
+        </tr>
     </form>
 </table>
+
 <br/>
-<a href="/users" >Back</a>
+<a href="/admin">Back</a>
 </body>
+<br/>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </html>

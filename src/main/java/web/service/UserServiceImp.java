@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import web.dao.UserDao;
+import web.model.Role;
 import web.model.User;
 
 import javax.transaction.Transactional;
@@ -63,5 +64,15 @@ public class UserServiceImp implements UserDetailsService, UserService {
     @Transactional
     public List<User> getAllUsers() {
         return userDao.getAll();
+    }
+
+    @Override
+    public Role getRole(String name) {
+        return userDao.getRole(name);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return userDao.getAllRoles();
     }
 }

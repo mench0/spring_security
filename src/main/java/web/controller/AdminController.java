@@ -33,8 +33,8 @@ public class AdminController {
     }
 
     @PostMapping("/create")
-    public String saveUser(@ModelAttribute("user") User user
-            , @RequestParam(value = "role") String[] roles) {
+    public String saveUser(@ModelAttribute("user") User user,
+                           @RequestParam(value = "role") String[] roles) {
         Set<Role> roleSet = new HashSet<>();
         if (roles != null) {
             for (String role : roles) {
@@ -63,7 +63,7 @@ public class AdminController {
 
     // редактирование при нажатии кнопки
     @PostMapping("/update")
-    public String update(User user, @RequestParam(value = "role") String[] roles) {
+    public String update(@ModelAttribute("user") User user, @RequestParam(value = "role") String[] roles) {
         Set<Role> roleSet = new HashSet<>();
         if (roles != null) {
             for (String role : roles) {
@@ -71,7 +71,6 @@ public class AdminController {
             }
         }
         user.setRoles(roleSet);
-
         userService.updateUser(user);
         return "redirect:/admin";
     }
